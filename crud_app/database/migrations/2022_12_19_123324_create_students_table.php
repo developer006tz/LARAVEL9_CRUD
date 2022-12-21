@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('student_name');
             $table->string('student_email');
             $table->enum('student_gender',['male','female']);
-            $table->date('student_date_of_birth');
             $table->string('student_image');
             $table->timestamps();
         });

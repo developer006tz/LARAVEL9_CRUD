@@ -40,7 +40,6 @@ class StudentController extends Controller
         $validated = $request->validate([
             'student_name'=>'required',
             'student_email'=>'required|email|unique:students',
-            'student_date_of_birth'=>'required|date',
             'student_image'=>'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000'
         ]);
 
@@ -52,7 +51,6 @@ class StudentController extends Controller
         $student->student_name=$request->student_name;
         $student->student_email=$request->student_email;
         $student->student_gender=$request->student_gender;
-        $student->student_date_of_birth=$request->student_date_of_birth;
         $student->student_image= $file_name;
 
         $student->save();
@@ -95,7 +93,6 @@ class StudentController extends Controller
         $request->validate([
             'student_name'=>'required',
             'student_email'=>'required|email|unique:students',
-            'student_date_of_birth'=>'required|date',
             'student_image'=>'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000'
         ]);
 
@@ -110,7 +107,6 @@ class StudentController extends Controller
         $student->student_name = $request->student_name;
         $student->student_email = $request->student_email;
         $student->student_gender = $request->student_gender;
-        $student->student_date_of_birth=$request->student_date_of_birth;
         $student->student_image = $studend_image;
 
         $student->save();
