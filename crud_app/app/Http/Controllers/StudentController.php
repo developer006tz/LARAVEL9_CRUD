@@ -92,7 +92,30 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        ret
+        $request->validate([
+            'student_name'=>'required',
+            'student_email'=>'required|email|unique:students',
+            'student_date_of_birth'=>'required|date',
+            'student_image'=>'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000'
+        ]);
+
+        $student_image = $request->hidden_student_image;
+
+        if($request->student_image !=''){
+            $student_image= time().'.'.request()->student_image->getClientOriginalExtension();
+            request()->student_image->move(public_path('images'), $student_image);
+        }
+
+        $student = Student::find($request->hidden_id);
+        $student->student_name = $request->student_name;
+        $student->student_email = $request->student_email;
+        $student->student_gender = $request->student_gender;
+        $student->student_date_of_birth=$request->student_date_of_birth;
+        $student->student_image = $studend_image;
+
+        $student->save();
+
+        return redirect()->route('student.index')->with('success','Student added successfull');
     }
 
     /**
@@ -103,6 +126,7 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $student->delete();
+        return redirect()->route('Student.index')->with('Success', 'Student deleted ');
     }
 }
